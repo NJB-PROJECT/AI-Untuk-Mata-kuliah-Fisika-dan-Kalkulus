@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/api_key_header"
+            android:textColor="@color/primary_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rgApiKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/rbBuiltIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_builtin" />
+
+            <RadioButton
+                android:id="@+id/rbUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/radio_user" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/etApiKey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/hint_api_key"
+            android:enabled="false"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/model_header"
+            android:textColor="@color/primary_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinnerModel"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/prompt_header"
+            android:textColor="@color/primary_color"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etSystemPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="top|start"
+            android:hint="@string/hint_prompt"
+            android:inputType="textMultiLine"
+            android:minLines="5" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/primary_color"
+            android:text="@string/btn_save"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnClearHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/accent_color"
+            android:text="@string/btn_clear_history"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</ScrollView>
