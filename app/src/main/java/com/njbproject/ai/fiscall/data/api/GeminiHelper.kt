@@ -2,13 +2,12 @@ package com.njbproject.ai.fiscall.data.api
 
 import android.graphics.Bitmap
 import com.google.ai.client.generativeai.GenerativeModel
-import com.google.ai.client.generativeai.type.Content
 import com.google.ai.client.generativeai.type.content
 import com.njbproject.ai.fiscall.utils.Constants
 
 class GeminiHelper(
     private val apiKey: String,
-    private val modelName: String = "gemini-1.5-flash"
+    private val modelName: String = "gemini-1.5-flash" // Default safe fallback
 ) {
 
     private val generativeModel = GenerativeModel(
@@ -17,7 +16,16 @@ class GeminiHelper(
     )
 
     suspend fun generateContent(prompt: String, image: Bitmap? = null, systemInstruction: String? = null): String {
-        // Prepend system instruction if exists
+        // Note: SDK 0.9.0 might not support systemInstruction directly in constructor for all models or the way we want.
+        // We will prepend the system instruction to the prompt if provided, which is a standard workaround
+        // or re-initialize if the SDK supports it better (SDK 0.9.0 supports systemInstruction in config).
+
+        // For simplicity and compatibility with older models, prepending is often safest unless we strictly use newer APIs.
+        // However, let's try to use the systemInstruction if we were to initialize it.
+        // Since we are creating the model here, let's stick to simple prompt injection for now
+        // OR re-create the model if system instruction changes (expensive).
+
+        // Better approach: Prepend the system prompt to the user's message.
         val finalPrompt = if (!systemInstruction.isNullOrBlank()) {
             "$systemInstruction\n\nUser: $prompt"
         } else {
@@ -25,26 +33,19 @@ class GeminiHelper(
         }
 
         return try {
-            if (image != null) {
-                // Use a helper function to isolate the DSL and avoid compiler crashes
-                val inputContent = createImageContent(image, finalPrompt)
-                val response = generativeModel.generateContent(inputContent)
-                response.text ?: "No response generated."
+            val response = if (image != null) {
+                generativeModel.generateContent(
+                    content {
+                        image(image)
+                        text(finalPrompt)
+                    }
+                )
             } else {
-                val response = generativeModel.generateContent(finalPrompt)
-                response.text ?: "No response generated."
+                generativeModel.generateContent(finalPrompt)
             }
+            response.text ?: "No response generated."
         } catch (e: Exception) {
             "Error: ${e.localizedMessage}"
-        }
-    }
-
-    // Isolate the DSL call to avoid FirIncompatibleClassExpressionChecker crash
-    // Renamed parameter 'image' to 'bitmap' to avoid shadowing the 'image()' DSL function
-    private fun createImageContent(bitmap: Bitmap, prompt: String): Content {
-        return content {
-            image(bitmap)
-            text(prompt)
         }
     }
 }
