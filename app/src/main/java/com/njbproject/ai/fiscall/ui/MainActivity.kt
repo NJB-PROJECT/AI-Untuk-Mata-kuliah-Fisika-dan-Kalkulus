@@ -38,7 +38,11 @@ class MainActivity : AppCompatActivity() {
                 // Copy to local cache to access path easily
                 val path = copyUriToInternalStorage(it)
                 currentImagePath = path
-                showImagePreview(path)
+                if (path != null) {
+                    displayImagePreview(path)
+                } else {
+                    Toast.makeText(this, "Gagal memproses gambar", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -147,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showImagePreview(path: String) {
+    private fun displayImagePreview(path: String) {
         binding.ivPreview.visibility = View.VISIBLE
         binding.ivPreview.setImageBitmap(BitmapFactory.decodeFile(path))
     }
