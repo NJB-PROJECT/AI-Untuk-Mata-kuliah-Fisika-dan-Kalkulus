@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AI Fiscall</string>
+    <string name="hint_input">Ketik soal Fisika/Kalkulus...</string>
+    <string name="settings_title">Pengaturan</string>
+    <string name="api_key_header">API Key</string>
+    <string name="radio_builtin">Built-in Key (Default)</string>
+    <string name="radio_user">Custom Key</string>
+    <string name="hint_api_key">Masukkan API Key Anda</string>
+    <string name="model_header">Model AI</string>
+    <string name="prompt_header">System Prompt (Personality)</string>
+    <string name="hint_prompt">Instruksi untuk AI...</string>
+    <string name="btn_save">Simpan</string>
+    <string name="btn_clear_history">Hapus Riwayat Chat</string>
+    <string name="menu_settings">Pengaturan</string>
+    <string name="no_history">Belum ada percakapan.</string>
+</resources>
