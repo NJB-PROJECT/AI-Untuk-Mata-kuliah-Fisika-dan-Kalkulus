@@ -34,9 +34,10 @@ class GeminiHelper(
 
         return try {
             val response = if (image != null) {
+                val safeImage: Bitmap = image
                 generativeModel.generateContent(
                     content {
-                        image(image)
+                        image(safeImage)
                         text(finalPrompt)
                     }
                 )
